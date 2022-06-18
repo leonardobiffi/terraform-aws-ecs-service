@@ -30,4 +30,8 @@ resource "aws_ecs_service" "service" {
       container_port   = coalesce(var.target_port, var.port)
     }
   }
+
+  lifecycle {
+    ignore_changes = [capacity_provider_strategy]
+  }
 }

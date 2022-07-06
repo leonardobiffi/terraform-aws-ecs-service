@@ -113,3 +113,9 @@ variable "force_new_deployment" {
   type        = bool
   default     = false
 }
+
+variable "tags" {
+  description = "The tags to apply to the service."
+  type        = map(string)
+  default     = {}
+}

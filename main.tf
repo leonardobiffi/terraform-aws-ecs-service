@@ -34,4 +34,6 @@ resource "aws_ecs_service" "service" {
   lifecycle {
     ignore_changes = [capacity_provider_strategy]
   }
+
+  tags = var.tags
 }

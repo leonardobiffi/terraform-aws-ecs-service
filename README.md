@@ -56,6 +56,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_cluster_arn"></a> [cluster\_arn](#output\_cluster\_arn) | The arn of the ECS cluster |
+| <a name="output_desired_count"></a> [desired\_count](#output\_desired\_count) | The desired count of the ECS service |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the ECS service |
 | <a name="output_name"></a> [name](#output\_name) | The name of the ECS service |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

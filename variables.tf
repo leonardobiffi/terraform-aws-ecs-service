@@ -114,6 +114,49 @@ variable "force_new_deployment" {
   default     = false
 }
 
+# Autoscaling
+variable "autoscaling_enabled" {
+  description = "Whether or not to enable autoscaling for this service."
+  type        = bool
+  default     = false
+}
+
+variable "autoscaling_min_capacity" {
+  description = "The minimum number of tasks to run for this service."
+  type        = number
+  default     = 1
+}
+
+variable "autoscaling_max_capacity" {
+  description = "The maximum number of tasks to run for this service."
+  type        = number
+  default     = 1
+}
+
+variable "autoscaling_cpu_target_value" {
+  description = "The CPU target value for autoscaling."
+  type        = number
+  default     = 0
+}
+
+variable "autoscaling_memory_target_value" {
+  description = "The memory target value for autoscaling."
+  type        = number
+  default     = 0
+}
+
+variable "autoscaling_scale_in_cooldown" {
+  description = "The cooldown period after a scale in event."
+  type        = number
+  default     = 120
+}
+
+variable "autoscaling_scale_out_cooldown" {
+  description = "The cooldown period after a scale out event."
+  type        = number
+  default     = 120
+}
+
 variable "tags" {
   description = "The tags to apply to the service."
   type        = map(string)

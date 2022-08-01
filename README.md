@@ -8,13 +8,13 @@ Terraform module to create an ECS Service for a web app (task), with existint AL
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
-| <a name="requirement_local"></a> [local](#requirement\_local) | ~> 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.21.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.24.0 |
 
 ## Modules
 
@@ -24,6 +24,9 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_appautoscaling_policy.cpu](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy) | resource |
+| [aws_appautoscaling_policy.memory](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy) | resource |
+| [aws_appautoscaling_target.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_target) | resource |
 | [aws_ecs_service.service](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service) | resource |
 
 ## Inputs
@@ -31,6 +34,13 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_attach_to_load_balancer"></a> [attach\_to\_load\_balancer](#input\_attach\_to\_load\_balancer) | Whether or not this service should attach to a load balancer. | `bool` | `true` | no |
+| <a name="input_autoscaling_cpu_target_value"></a> [autoscaling\_cpu\_target\_value](#input\_autoscaling\_cpu\_target\_value) | The CPU target value for autoscaling. | `number` | `0` | no |
+| <a name="input_autoscaling_enabled"></a> [autoscaling\_enabled](#input\_autoscaling\_enabled) | Whether or not to enable autoscaling for this service. | `bool` | `false` | no |
+| <a name="input_autoscaling_max_capacity"></a> [autoscaling\_max\_capacity](#input\_autoscaling\_max\_capacity) | The maximum number of tasks to run for this service. | `number` | `1` | no |
+| <a name="input_autoscaling_memory_target_value"></a> [autoscaling\_memory\_target\_value](#input\_autoscaling\_memory\_target\_value) | The memory target value for autoscaling. | `number` | `0` | no |
+| <a name="input_autoscaling_min_capacity"></a> [autoscaling\_min\_capacity](#input\_autoscaling\_min\_capacity) | The minimum number of tasks to run for this service. | `number` | `1` | no |
+| <a name="input_autoscaling_scale_in_cooldown"></a> [autoscaling\_scale\_in\_cooldown](#input\_autoscaling\_scale\_in\_cooldown) | The cooldown period after a scale in event. | `number` | `120` | no |
+| <a name="input_autoscaling_scale_out_cooldown"></a> [autoscaling\_scale\_out\_cooldown](#input\_autoscaling\_scale\_out\_cooldown) | The cooldown period after a scale out event. | `number` | `120` | no |
 | <a name="input_deployment_maximum_percent"></a> [deployment\_maximum\_percent](#input\_deployment\_maximum\_percent) | The maximum percentage of the desired count that can be running. | `number` | `200` | no |
 | <a name="input_deployment_minimum_healthy_percent"></a> [deployment\_minimum\_healthy\_percent](#input\_deployment\_minimum\_healthy\_percent) | The minimum healthy percentage of the desired count to keep running. | `number` | `50` | no |
 | <a name="input_desired_count"></a> [desired\_count](#input\_desired\_count) | The desired number of tasks in the service. | `number` | `3` | no |
@@ -57,7 +67,6 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_cluster_arn"></a> [cluster\_arn](#output\_cluster\_arn) | The arn of the ECS cluster |
-| <a name="output_desired_count"></a> [desired\_count](#output\_desired\_count) | The desired count of the ECS service |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the ECS service |
 | <a name="output_name"></a> [name](#output\_name) | The name of the ECS service |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

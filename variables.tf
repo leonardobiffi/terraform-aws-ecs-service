@@ -157,6 +157,24 @@ variable "autoscaling_scale_out_cooldown" {
   default     = 120
 }
 
+variable "launch_type" {
+  description = "The launch type to use for the service (\"EC2\" or \"FARGATE\")."
+  type        = string
+  default     = null
+}
+
+variable "platform_version" {
+  description = "The platform version to use for the ECS"
+  type        = string
+  default     = "1.4.0"
+}
+
+variable "assign_public_ip" {
+  description = "Whether or not to assign a public IP address to each container."
+  type        = bool
+  default     = false
+}
+
 variable "tags" {
   description = "The tags to apply to the service."
   type        = map(string)

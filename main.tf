@@ -1,9 +1,11 @@
 resource "aws_ecs_service" "service" {
-  name            = var.name
-  cluster         = var.ecs_cluster_id
-  task_definition = var.task_definition
-  desired_count   = var.desired_count
-  iam_role        = (var.attach_to_load_balancer && var.task_network_mode != "awsvpc") ? var.ecs_cluster_service_role_arn : null
+  name             = var.name
+  cluster          = var.ecs_cluster_id
+  task_definition  = var.task_definition
+  desired_count    = var.desired_count
+  iam_role         = (var.attach_to_load_balancer && var.task_network_mode != "awsvpc") ? var.ecs_cluster_service_role_arn : null
+  launch_type      = var.launch_type
+  platform_version = var.platform_version
 
   deployment_maximum_percent         = var.deployment_maximum_percent
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
@@ -15,8 +17,9 @@ resource "aws_ecs_service" "service" {
     for_each = var.task_network_mode == "awsvpc" ? [var.subnet_ids] : []
 
     content {
-      subnets         = network_configuration.value
-      security_groups = var.security_group_ids
+      subnets          = network_configuration.value
+      security_groups  = var.security_group_ids
+      assign_public_ip = var.assign_public_ip
     }
   }
 

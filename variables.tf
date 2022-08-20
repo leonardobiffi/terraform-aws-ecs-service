@@ -34,7 +34,7 @@ variable "name" {
 variable "desired_count" {
   description = "The desired number of tasks in the service."
   type        = number
-  default     = 3
+  default     = 1
 }
 
 variable "deployment_maximum_percent" {
@@ -99,6 +99,11 @@ variable "scheduling_strategy" {
 
 variable "ecs_cluster_id" {
   description = "The ID of the ECS cluster in which to deploy the service."
+  type        = string
+}
+
+variable "ecs_cluster_name" {
+  description = "The name of the ECS cluster in which to deploy the service."
   type        = string
 }
 

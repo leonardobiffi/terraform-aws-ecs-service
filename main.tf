@@ -2,7 +2,7 @@ resource "aws_ecs_service" "service" {
   name             = var.name
   cluster          = var.ecs_cluster_id
   task_definition  = var.task_definition
-  desired_count    = var.desired_count
+  desired_count    = var.autoscaling_enabled ? var.autoscaling_min_capacity : var.desired_count
   iam_role         = (var.attach_to_load_balancer && var.task_network_mode != "awsvpc") ? var.ecs_cluster_service_role_arn : null
   launch_type      = var.launch_type
   platform_version = var.platform_version
@@ -46,7 +46,7 @@ resource "aws_appautoscaling_target" "main" {
   count              = var.autoscaling_enabled ? 1 : 0
   max_capacity       = var.autoscaling_max_capacity
   min_capacity       = var.autoscaling_min_capacity
-  resource_id        = "service/${var.ecs_cluster_id}/${aws_ecs_service.service.name}"
+  resource_id        = "service/${var.ecs_cluster_name}/${aws_ecs_service.service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }

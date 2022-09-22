@@ -174,6 +174,12 @@ variable "platform_version" {
   default     = "1.4.0"
 }
 
+variable "enable_execute_command" {
+  description = "Whether or not to enable execute command for this service."
+  type        = bool
+  default     = true
+}
+
 variable "assign_public_ip" {
   description = "Whether or not to assign a public IP address to each container."
   type        = bool

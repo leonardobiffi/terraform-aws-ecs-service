@@ -7,6 +7,7 @@ resource "aws_ecs_service" "service" {
   launch_type      = var.launch_type
   platform_version = var.platform_version
 
+  enable_execute_command             = var.enable_execute_command
   deployment_maximum_percent         = var.deployment_maximum_percent
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   health_check_grace_period_seconds  = var.attach_to_load_balancer ? var.health_check_grace_period_seconds : null

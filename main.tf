@@ -35,6 +35,16 @@ resource "aws_ecs_service" "service" {
     }
   }
 
+  dynamic "load_balancer" {
+    for_each = var.attach_to_multiples_target_groups ? var.multiples_target_groups : []
+
+    content {
+      target_group_arn = load_balancer.value.target_group_arn
+      container_name   = load_balancer.value.container_name
+      container_port   = load_balancer.value.container_port
+    }
+  }
+
   lifecycle {
     ignore_changes = [capacity_provider_strategy, desired_count]
   }

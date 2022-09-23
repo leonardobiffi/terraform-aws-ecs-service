@@ -35,6 +35,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_assign_public_ip"></a> [assign\_public\_ip](#input\_assign\_public\_ip) | Whether or not to assign a public IP address to each container. | `bool` | `false` | no |
 | <a name="input_attach_to_load_balancer"></a> [attach\_to\_load\_balancer](#input\_attach\_to\_load\_balancer) | Whether or not this service should attach to a load balancer. | `bool` | `true` | no |
+| <a name="input_attach_to_multiples_target_groups"></a> [attach\_to\_multiples\_target\_groups](#input\_attach\_to\_multiples\_target\_groups) | Whether or not this service should attach to multiples target groups. | `bool` | `false` | no |
 | <a name="input_autoscaling_cpu_target_value"></a> [autoscaling\_cpu\_target\_value](#input\_autoscaling\_cpu\_target\_value) | The CPU target value for autoscaling. | `number` | `0` | no |
 | <a name="input_autoscaling_enabled"></a> [autoscaling\_enabled](#input\_autoscaling\_enabled) | Whether or not to enable autoscaling for this service. | `bool` | `false` | no |
 | <a name="input_autoscaling_max_capacity"></a> [autoscaling\_max\_capacity](#input\_autoscaling\_max\_capacity) | The maximum number of tasks to run for this service. | `number` | `1` | no |
@@ -53,6 +54,7 @@ No modules.
 | <a name="input_force_new_deployment"></a> [force\_new\_deployment](#input\_force\_new\_deployment) | Whether or not to force a new deployment of the service. | `bool` | `false` | no |
 | <a name="input_health_check_grace_period_seconds"></a> [health\_check\_grace\_period\_seconds](#input\_health\_check\_grace\_period\_seconds) | The number of seconds to wait for the service to start up before starting load balancer health checks. | `number` | `0` | no |
 | <a name="input_launch_type"></a> [launch\_type](#input\_launch\_type) | The launch type to use for the service ("EC2" or "FARGATE"). | `string` | `null` | no |
+| <a name="input_multiples_target_groups"></a> [multiples\_target\_groups](#input\_multiples\_target\_groups) | The multiples target groups to attach to the service. | <pre>list(object({<br>    target_group_arn = string<br>    container_name   = string<br>    container_port   = string<br>  }))</pre> | `[]` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name of the service being created. | `string` | n/a | yes |
 | <a name="input_platform_version"></a> [platform\_version](#input\_platform\_version) | The platform version to use for the ECS | `string` | `"1.4.0"` | no |
 | <a name="input_port"></a> [port](#input\_port) | The port the containers will be listening on. | `string` | `null` | no |

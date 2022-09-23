@@ -67,6 +67,22 @@ variable "attach_to_load_balancer" {
   default     = true
 }
 
+variable "attach_to_multiples_target_groups" {
+  description = "Whether or not this service should attach to multiples target groups."
+  type        = bool
+  default     = false
+}
+
+variable "multiples_target_groups" {
+  description = "The multiples target groups to attach to the service."
+  type = list(object({
+    target_group_arn = string
+    container_name   = string
+    container_port   = string
+  }))
+  default = []
+}
+
 variable "elb_name" {
   description = "The name of the ELB to configure to point at the service containers."
   type        = string

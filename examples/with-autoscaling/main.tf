@@ -11,8 +11,9 @@ module "ecs" {
   subnet_ids         = data.aws_subnets.default.ids
   security_group_ids = data.aws_security_groups.default.ids
 
-  ecs_cluster_id  = "cluster-test"
-  task_definition = module.container_definition.json_map_encoded
+  ecs_cluster_id   = "cluster-test"
+  ecs_cluster_name = "cluster-test"
+  task_definition  = module.container_definition.json_map_encoded
 
   elb_name              = "elb-test"
   target_group_arn      = "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/target-group-test/1"

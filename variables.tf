@@ -1,5 +1,16 @@
+variable "enabled" {
+  description = "Whether or not to create the resources."
+  type        = bool
+  default     = true
+}
+
 variable "vpc_id" {
   description = "The ID of the VPC into which to deploy the service."
+  type        = string
+}
+
+variable "ecs_cluster_id" {
+  description = "The name of the ECS cluster in which to deploy the service."
   type        = string
 }
 
@@ -61,28 +72,6 @@ variable "port" {
   default     = null
 }
 
-variable "attach_to_load_balancer" {
-  description = "Whether or not this service should attach to a load balancer."
-  type        = bool
-  default     = true
-}
-
-variable "attach_to_multiples_target_groups" {
-  description = "Whether or not this service should attach to multiples target groups."
-  type        = bool
-  default     = false
-}
-
-variable "multiples_target_groups" {
-  description = "The multiples target groups to attach to the service."
-  type = list(object({
-    target_group_arn = string
-    container_name   = string
-    container_port   = string
-  }))
-  default = []
-}
-
 variable "elb_name" {
   description = "The name of the ELB to configure to point at the service containers."
   type        = string
@@ -93,6 +82,16 @@ variable "target_group_arn" {
   description = "The arn of the target group to point at the service containers."
   type        = string
   default     = null
+}
+
+variable "multiples_target_groups" {
+  description = "The multiples target groups to attach to the service."
+  type = list(object({
+    target_group_arn = string
+    container_name   = string
+    container_port   = string
+  }))
+  default = []
 }
 
 variable "target_container_name" {
@@ -111,16 +110,6 @@ variable "scheduling_strategy" {
   description = "The scheduling strategy to use for this service (\"REPLICA\" or \"DAEMON\")."
   type        = string
   default     = "REPLICA"
-}
-
-variable "ecs_cluster_id" {
-  description = "The ID of the ECS cluster in which to deploy the service."
-  type        = string
-}
-
-variable "ecs_cluster_name" {
-  description = "The name of the ECS cluster in which to deploy the service."
-  type        = string
 }
 
 variable "ecs_cluster_service_role_arn" {

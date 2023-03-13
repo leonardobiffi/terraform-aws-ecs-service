@@ -1,16 +1,22 @@
+locals {
+  attach_to_load_balancer = var.elb_name != null || var.target_group_arn != null
+}
+
 resource "aws_ecs_service" "service" {
+  count = var.enabled ? 1 : 0
+
   name             = var.name
   cluster          = var.ecs_cluster_id
   task_definition  = var.task_definition
   desired_count    = var.autoscaling_enabled ? var.autoscaling_min_capacity : var.desired_count
-  iam_role         = (var.attach_to_load_balancer && var.task_network_mode != "awsvpc") ? var.ecs_cluster_service_role_arn : null
+  iam_role         = (local.attach_to_load_balancer && var.task_network_mode != "awsvpc") ? var.ecs_cluster_service_role_arn : null
   launch_type      = var.launch_type
   platform_version = var.platform_version
 
   enable_execute_command             = var.enable_execute_command
   deployment_maximum_percent         = var.deployment_maximum_percent
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
-  health_check_grace_period_seconds  = var.attach_to_load_balancer ? var.health_check_grace_period_seconds : null
+  health_check_grace_period_seconds  = local.attach_to_load_balancer ? var.health_check_grace_period_seconds : null
   scheduling_strategy                = var.scheduling_strategy
   force_new_deployment               = var.force_new_deployment
 
@@ -25,7 +31,7 @@ resource "aws_ecs_service" "service" {
   }
 
   dynamic "load_balancer" {
-    for_each = var.attach_to_load_balancer ? [coalesce(var.target_group_arn, var.elb_name)] : []
+    for_each = var.elb_name != null ? [coalesce(var.target_group_arn, var.elb_name)] : []
 
     content {
       elb_name         = var.elb_name
@@ -36,7 +42,7 @@ resource "aws_ecs_service" "service" {
   }
 
   dynamic "load_balancer" {
-    for_each = var.attach_to_multiples_target_groups ? var.multiples_target_groups : []
+    for_each = var.multiples_target_groups
 
     content {
       target_group_arn = load_balancer.value.target_group_arn
@@ -54,10 +60,10 @@ resource "aws_ecs_service" "service" {
 
 # Autoscaling
 resource "aws_appautoscaling_target" "main" {
-  count              = var.autoscaling_enabled ? 1 : 0
+  count              = var.autoscaling_enabled && var.enabled ? 1 : 0
   max_capacity       = var.autoscaling_max_capacity
   min_capacity       = var.autoscaling_min_capacity
-  resource_id        = "service/${var.ecs_cluster_name}/${aws_ecs_service.service.name}"
+  resource_id        = "service/${var.ecs_cluster_id}/${aws_ecs_service.service[0].name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }

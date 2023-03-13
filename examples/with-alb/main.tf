@@ -23,19 +23,6 @@ module "ecs" {
   target_container_name = local.name
   target_port           = 80
   port                  = 80
-
-  multiples_target_groups = [
-    {
-      target_group_arn = "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/target-group-test/1"
-      container_name   = local.name
-      container_port   = 80
-    },
-    {
-      target_group_arn = "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/target-group-test/2"
-      container_name   = local.name
-      container_port   = 8080
-    }
-  ]
 }
 
 module "container_definition" {

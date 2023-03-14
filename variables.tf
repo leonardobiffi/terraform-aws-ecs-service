@@ -10,6 +10,11 @@ variable "vpc_id" {
 }
 
 variable "ecs_cluster_id" {
+  description = "The ID of the ECS cluster in which to deploy the service."
+  type        = string
+}
+
+variable "ecs_cluster_name" {
   description = "The name of the ECS cluster in which to deploy the service."
   type        = string
 }

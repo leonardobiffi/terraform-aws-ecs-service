@@ -14,8 +14,9 @@ module "ecs" {
   vpc_id     = data.aws_vpc.default.id
   subnet_ids = data.aws_subnets.default.ids
 
-  ecs_cluster_id  = aws_ecs_cluster.main.id
-  task_definition = module.container_definition.json_map_encoded
+  ecs_cluster_id   = aws_ecs_cluster.main.id
+  ecs_cluster_name = aws_ecs_cluster.main.name
+  task_definition  = module.container_definition.json_map_encoded
 }
 
 module "container_definition" {

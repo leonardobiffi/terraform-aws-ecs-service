@@ -59,11 +59,16 @@ resource "aws_ecs_service" "service" {
 }
 
 # Autoscaling
+
+locals {
+  ecs_cluster_name = regex("arn:aws:ecs:.*:.*:cluster/(.*)", var.ecs_cluster_id)[0]
+}
+
 resource "aws_appautoscaling_target" "main" {
   count              = var.autoscaling_enabled && var.enabled ? 1 : 0
   max_capacity       = var.autoscaling_max_capacity
   min_capacity       = var.autoscaling_min_capacity
-  resource_id        = "service/${var.ecs_cluster_name}/${aws_ecs_service.service[0].name}"
+  resource_id        = "service/${local.ecs_cluster_name}/${aws_ecs_service.service[0].name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }

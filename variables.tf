@@ -14,11 +14,6 @@ variable "ecs_cluster_id" {
   type        = string
 }
 
-variable "ecs_cluster_name" {
-  description = "The name of the ECS cluster in which to deploy the service."
-  type        = string
-}
-
 variable "subnet_ids" {
   description = "The IDs of the subnets in which to create ENIs when the service task network mode is \"awsvpc\"."
   type        = list(string)

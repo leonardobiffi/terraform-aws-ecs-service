@@ -45,7 +45,6 @@ No modules.
 | <a name="input_deployment_minimum_healthy_percent"></a> [deployment\_minimum\_healthy\_percent](#input\_deployment\_minimum\_healthy\_percent) | The minimum healthy percentage of the desired count to keep running. | `number` | `50` | no |
 | <a name="input_desired_count"></a> [desired\_count](#input\_desired\_count) | The desired number of tasks in the service. | `number` | `1` | no |
 | <a name="input_ecs_cluster_id"></a> [ecs\_cluster\_id](#input\_ecs\_cluster\_id) | The ID of the ECS cluster in which to deploy the service. | `string` | n/a | yes |
-| <a name="input_ecs_cluster_name"></a> [ecs\_cluster\_name](#input\_ecs\_cluster\_name) | The name of the ECS cluster in which to deploy the service. | `string` | n/a | yes |
 | <a name="input_ecs_cluster_service_role_arn"></a> [ecs\_cluster\_service\_role\_arn](#input\_ecs\_cluster\_service\_role\_arn) | The ARN of the IAM role to provide to ECS to manage the service. | `string` | `null` | no |
 | <a name="input_elb_name"></a> [elb\_name](#input\_elb\_name) | The name of the ELB to configure to point at the service containers. | `string` | `null` | no |
 | <a name="input_enable_execute_command"></a> [enable\_execute\_command](#input\_enable\_execute\_command) | Whether or not to enable execute command for this service. | `bool` | `true` | no |

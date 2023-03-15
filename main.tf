@@ -31,10 +31,9 @@ resource "aws_ecs_service" "service" {
   }
 
   dynamic "load_balancer" {
-    for_each = var.elb_name != null ? [coalesce(var.target_group_arn, var.elb_name)] : []
+    for_each = var.target_group_arn != null ? [var.target_group_arn] : []
 
     content {
-      elb_name         = var.elb_name
       target_group_arn = var.target_group_arn
       container_name   = coalesce(var.target_container_name, var.name)
       container_port   = coalesce(var.target_port, var.port)

@@ -11,7 +11,7 @@ resource "aws_ecs_service" "service" {
   desired_count    = var.autoscaling_enabled ? var.autoscaling_min_capacity : var.desired_count
   iam_role         = (local.attach_to_load_balancer && var.task_network_mode != "awsvpc") ? var.ecs_cluster_service_role_arn : null
   launch_type      = var.launch_type
-  platform_version = var.platform_version
+  platform_version = var.launch_type == "FARGATE" ? var.platform_version : null
 
   enable_execute_command             = var.enable_execute_command
   deployment_maximum_percent         = var.deployment_maximum_percent

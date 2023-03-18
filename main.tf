@@ -21,7 +21,7 @@ resource "aws_ecs_service" "service" {
   force_new_deployment               = var.force_new_deployment
 
   dynamic "network_configuration" {
-    for_each = var.task_network_mode == "awsvpc" && var.launch_type == "FARGATE" ? [var.subnet_ids] : []
+    for_each = var.task_network_mode == "awsvpc" ? [var.subnet_ids] : []
 
     content {
       subnets          = network_configuration.value

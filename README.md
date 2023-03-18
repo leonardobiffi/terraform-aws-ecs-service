@@ -58,7 +58,7 @@ No modules.
 | <a name="input_port"></a> [port](#input\_port) | The port the containers will be listening on. | `string` | `null` | no |
 | <a name="input_scheduling_strategy"></a> [scheduling\_strategy](#input\_scheduling\_strategy) | The scheduling strategy to use for this service ("REPLICA" or "DAEMON"). | `string` | `"REPLICA"` | no |
 | <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | The IDs of the security groups to associate with the ENIs when the service task network mode is "awsvpc". | `list(string)` | `[]` | no |
-| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | The IDs of the subnets in which to create ENIs when the service task network mode is "awsvpc". | `list(string)` | `[]` | no |
+| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | The IDs of the subnets in which to create ENIs when the service task network mode is "awsvpc". | `list(string)` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | The tags to apply to the service. | `map(string)` | `{}` | no |
 | <a name="input_target_container_name"></a> [target\_container\_name](#input\_target\_container\_name) | The name of the container to which the load balancer should route traffic. Defaults to the service\_name. | `string` | `null` | no |
 | <a name="input_target_group_arn"></a> [target\_group\_arn](#input\_target\_group\_arn) | The arn of the target group to point at the service containers. | `string` | `null` | no |

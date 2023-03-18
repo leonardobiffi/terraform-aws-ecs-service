@@ -12,7 +12,7 @@ variable "ecs_cluster_id" {
 variable "subnet_ids" {
   description = "The IDs of the subnets in which to create ENIs when the service task network mode is \"awsvpc\"."
   type        = list(string)
-  default     = []
+  default     = null
 }
 
 variable "security_group_ids" {

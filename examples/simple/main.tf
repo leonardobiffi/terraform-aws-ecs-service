@@ -11,7 +11,6 @@ module "ecs" {
 
   name = local.name
 
-  vpc_id     = data.aws_vpc.default.id
   subnet_ids = data.aws_subnets.default.ids
 
   ecs_cluster_id  = aws_ecs_cluster.main.id

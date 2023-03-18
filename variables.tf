@@ -4,11 +4,6 @@ variable "enabled" {
   default     = true
 }
 
-variable "vpc_id" {
-  description = "The ID of the VPC into which to deploy the service."
-  type        = string
-}
-
 variable "ecs_cluster_id" {
   description = "The ID of the ECS cluster in which to deploy the service."
   type        = string

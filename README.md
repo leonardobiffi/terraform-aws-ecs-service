@@ -65,7 +65,6 @@ No modules.
 | <a name="input_target_port"></a> [target\_port](#input\_target\_port) | The port to which the load balancer should route traffic. Defaults to the service\_port. | `string` | `null` | no |
 | <a name="input_task_definition"></a> [task\_definition](#input\_task\_definition) | A template for the container definitions in the task. | `string` | n/a | yes |
 | <a name="input_task_network_mode"></a> [task\_network\_mode](#input\_task\_network\_mode) | The network mode used for the containers in the task. | `string` | `"awsvpc"` | no |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The ID of the VPC into which to deploy the service. | `string` | n/a | yes |
 
 ## Outputs
 

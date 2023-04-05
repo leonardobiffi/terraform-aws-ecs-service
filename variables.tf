@@ -217,6 +217,24 @@ variable "service_discovery_failure_threshold" {
   default     = 1
 }
 
+variable "service_discovery_port" {
+  description = "The port value used if your Service Discovery service specified an SRV record."
+  type        = number
+  default     = null
+}
+
+variable "service_discovery_container_name" {
+  description = "The container name value, already specified in the task definition, to be used for your service discovery service."
+  type        = string
+  default     = null
+}
+
+variable "service_discovery_container_port" {
+  description = "The port value, already specified in the task definition, to be used for your service discovery service."
+  type        = number
+  default     = null
+}
+
 variable "tags" {
   description = "The tags to apply to the service."
   type        = map(string)

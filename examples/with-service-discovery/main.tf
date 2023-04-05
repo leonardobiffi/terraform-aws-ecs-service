@@ -24,6 +24,7 @@ module "ecs" {
 
   enable_service_discovery       = true
   service_discovery_namespace_id = aws_service_discovery_private_dns_namespace.example.id
+  service_discovery_port         = 80
 }
 
 module "container_definition" {

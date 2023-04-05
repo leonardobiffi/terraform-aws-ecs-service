@@ -57,9 +57,9 @@ resource "aws_ecs_service" "service" {
     # Setting port is not supported whne using "host" or "bridge" network mode.
     content {
       registry_arn   = service_registries.value.arn
-      port           = var.port
-      container_name = var.target_container_name
-      container_port = var.target_port
+      port           = var.task_network_mode == "awsvpc" ? var.service_discovery_port : null
+      container_name = var.service_discovery_container_name
+      container_port = var.service_discovery_container_port
     }
   }
 

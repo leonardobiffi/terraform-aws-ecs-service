@@ -14,7 +14,7 @@ Terraform module to create an ECS Service for a web app (task), with existint AL
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.24.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.61.0 |
 
 ## Modules
 
@@ -28,6 +28,7 @@ No modules.
 | [aws_appautoscaling_policy.memory](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy) | resource |
 | [aws_appautoscaling_target.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_target) | resource |
 | [aws_ecs_service.service](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service) | resource |
+| [aws_service_discovery_service.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/service_discovery_service) | resource |
 
 ## Inputs
 
@@ -46,8 +47,8 @@ No modules.
 | <a name="input_desired_count"></a> [desired\_count](#input\_desired\_count) | The desired number of tasks in the service. | `number` | `1` | no |
 | <a name="input_ecs_cluster_id"></a> [ecs\_cluster\_id](#input\_ecs\_cluster\_id) | The ID of the ECS cluster in which to deploy the service. | `string` | n/a | yes |
 | <a name="input_ecs_cluster_service_role_arn"></a> [ecs\_cluster\_service\_role\_arn](#input\_ecs\_cluster\_service\_role\_arn) | The ARN of the IAM role to provide to ECS to manage the service. | `string` | `null` | no |
-| <a name="input_elb_name"></a> [elb\_name](#input\_elb\_name) | The name of the ELB to configure to point at the service containers. | `string` | `null` | no |
 | <a name="input_enable_execute_command"></a> [enable\_execute\_command](#input\_enable\_execute\_command) | Whether or not to enable execute command for this service. | `bool` | `true` | no |
+| <a name="input_enable_service_discovery"></a> [enable\_service\_discovery](#input\_enable\_service\_discovery) | Whether the service should be registered with Service Discovery. In order to use Service Disovery, an existing DNS Namespace must exist and be passed in. | `bool` | `false` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Whether or not to create the resources. | `bool` | `true` | no |
 | <a name="input_force_new_deployment"></a> [force\_new\_deployment](#input\_force\_new\_deployment) | Whether or not to force a new deployment of the service. | `bool` | `false` | no |
 | <a name="input_health_check_grace_period_seconds"></a> [health\_check\_grace\_period\_seconds](#input\_health\_check\_grace\_period\_seconds) | The number of seconds to wait for the service to start up before starting load balancer health checks. | `number` | `0` | no |
@@ -58,6 +59,11 @@ No modules.
 | <a name="input_port"></a> [port](#input\_port) | The port the containers will be listening on. | `string` | `null` | no |
 | <a name="input_scheduling_strategy"></a> [scheduling\_strategy](#input\_scheduling\_strategy) | The scheduling strategy to use for this service ("REPLICA" or "DAEMON"). | `string` | `"REPLICA"` | no |
 | <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | The IDs of the security groups to associate with the ENIs when the service task network mode is "awsvpc". | `list(string)` | `[]` | no |
+| <a name="input_service_discovery_dns_record_type"></a> [service\_discovery\_dns\_record\_type](#input\_service\_discovery\_dns\_record\_type) | The type of the resource, which indicates the value that Amazon Route 53 returns in response to DNS queries. One of `A` or `SRV`. | `string` | `"A"` | no |
+| <a name="input_service_discovery_dns_ttl"></a> [service\_discovery\_dns\_ttl](#input\_service\_discovery\_dns\_ttl) | The amount of time, in seconds, that you want DNS resolvers to cache the settings for this resource record set. | `number` | `10` | no |
+| <a name="input_service_discovery_failure_threshold"></a> [service\_discovery\_failure\_threshold](#input\_service\_discovery\_failure\_threshold) | The number of 30-second intervals that you want service discovery to wait before it changes the health status of a service instance. Maximum value of 10. | `number` | `1` | no |
+| <a name="input_service_discovery_namespace_id"></a> [service\_discovery\_namespace\_id](#input\_service\_discovery\_namespace\_id) | The ID of the namespace to use for DNS configuration. | `string` | `null` | no |
+| <a name="input_service_discovery_routing_policy"></a> [service\_discovery\_routing\_policy](#input\_service\_discovery\_routing\_policy) | The routing policy that you want to apply to all records that Route 53 creates when you register an instance and specify the service. One of `MULTIVALUE` or `WEIGHTED`. | `string` | `"MULTIVALUE"` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | The IDs of the subnets in which to create ENIs when the service task network mode is "awsvpc". | `list(string)` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | The tags to apply to the service. | `map(string)` | `{}` | no |
 | <a name="input_target_container_name"></a> [target\_container\_name](#input\_target\_container\_name) | The name of the container to which the load balancer should route traffic. Defaults to the service\_name. | `string` | `null` | no |

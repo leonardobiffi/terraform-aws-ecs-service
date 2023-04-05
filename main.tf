@@ -1,5 +1,5 @@
 locals {
-  attach_to_load_balancer = var.elb_name != null || var.target_group_arn != null
+  attach_to_load_balancer = var.target_group_arn != null
 }
 
 resource "aws_ecs_service" "service" {
@@ -47,6 +47,19 @@ resource "aws_ecs_service" "service" {
       target_group_arn = load_balancer.value.target_group_arn
       container_name   = load_balancer.value.container_name
       container_port   = load_balancer.value.container_port
+    }
+  }
+
+  # When Service Discovery is enabled
+  dynamic "service_registries" {
+    for_each = aws_service_discovery_service.main
+
+    # Setting port is not supported whne using "host" or "bridge" network mode.
+    content {
+      registry_arn   = service_registries.value.arn
+      port           = var.port
+      container_name = var.target_container_name
+      container_port = var.target_port
     }
   }
 
@@ -116,4 +129,25 @@ resource "aws_appautoscaling_policy" "memory" {
   }
 
   depends_on = [aws_ecs_service.service]
+}
+
+resource "aws_service_discovery_service" "main" {
+  count = var.enable_service_discovery ? 1 : 0
+
+  name = var.name
+
+  dns_config {
+    namespace_id = var.service_discovery_namespace_id
+
+    dns_records {
+      ttl  = var.service_discovery_dns_ttl
+      type = var.service_discovery_dns_record_type
+    }
+
+    routing_policy = var.service_discovery_routing_policy
+  }
+
+  health_check_custom_config {
+    failure_threshold = var.service_discovery_failure_threshold
+  }
 }
